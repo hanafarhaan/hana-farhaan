@@ -1,0 +1,343 @@
+.rsvp {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  text-align: left;
+}
+
+.field {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.field > label,
+.field > legend {
+  display: block;
+  padding: 0;
+  margin-bottom: 6px;
+  font: 400 11.5px/1.6 var(--sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field textarea {
+  display: block;
+  width: 100%;
+  font: 400 17px/1.4 var(--sans);
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.field input {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(58, 10, 20, 0.32);
+}
+
+.field textarea {
+  min-height: 104px;
+  padding: 10px 12px;
+  resize: vertical;
+  border: 1px solid rgba(58, 10, 20, 0.22);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.field input::placeholder {
+  color: rgba(58, 10, 20, 0.35);
+}
+
+.field input:focus {
+  border-bottom-color: var(--leather);
+  box-shadow: 0 1px 0 0 var(--leather);
+}
+
+.field textarea:focus {
+  border-color: var(--leather);
+}
+
+.field input[aria-invalid="true"] {
+  border-bottom-color: var(--error);
+}
+
+.field__help,
+.field__count {
+  margin-top: 6px;
+  font: 400 13px/1.5 var(--sans);
+  color: var(--ink-soft);
+}
+
+.field__count {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.field__err {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font: 500 13px/1.4 var(--sans);
+  color: var(--error);
+}
+
+.field__err svg {
+  flex: none;
+}
+
+/* ---------- Radio cards ---------- */
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 52px;
+  padding: 0 16px;
+  font: 400 15.5px/1.3 var(--sans);
+  color: var(--ink);
+  border: 1px solid rgba(184, 149, 91, 0.75);
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.choice input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.choice__dot {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--leather);
+}
+
+.choice__dot::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--leather);
+  transform: scale(0);
+  transition: transform 0.25s var(--ease);
+}
+
+.choice.is-checked {
+  border-color: var(--leather);
+  background: rgba(109, 16, 35, 0.07);
+}
+
+.choice.is-checked .choice__dot::after {
+  transform: scale(1);
+}
+
+.choice:has(input:focus-visible) {
+  outline: 2px solid var(--leather);
+  outline-offset: 2px;
+}
+
+.rsvp__formerr {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  font: 400 14px/1.5 var(--sans);
+  color: #7a0f22;
+  border: 1px solid rgba(142, 16, 38, 0.35);
+  background: rgba(142, 16, 38, 0.06);
+}
+
+.rsvp__formerr svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+/* ---------- After replying ---------- */
+
+.rsvp-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  outline: none;
+}
+
+.rsvp-done__title {
+  font: 400 clamp(36px, 10.5vw, 46px)/1.1 var(--script);
+  color: var(--leather);
+}
+
+.rsvp-done__body {
+  max-width: 32ch;
+  font: italic 400 18px/1.55 var(--serif);
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.rsvp-done__note,
+.rsvp-done__status {
+  font: 400 14px/1.5 var(--sans);
+  color: var(--ink-soft);
+}
+
+.rsvp-done__status {
+  min-height: 1.5em;
+  margin-top: -4px;
+}
+
+/* ---------- Ticket ---------- */
+
+.ticket {
+  width: 100%;
+  max-width: 330px;
+  margin: 12px auto 8px;
+  color: var(--ink);
+  filter: drop-shadow(0 16px 26px rgba(50, 6, 16, 0.26));
+}
+
+.ticket__main,
+.ticket__perf,
+.ticket__stub {
+  background-color: #f8f1e6;
+  background-image: var(--tex-paper-grain);
+  background-size: 220px 220px;
+}
+
+.ticket__main {
+  position: relative;
+  padding: 30px 24px 22px;
+}
+
+.ticket__main::before {
+  content: "";
+  position: absolute;
+  inset: 10px 10px 2px;
+  border: 1px solid rgba(184, 149, 91, 0.85);
+  outline: 1px solid rgba(184, 149, 91, 0.38);
+  outline-offset: -5px;
+  border-bottom: 0;
+  pointer-events: none;
+}
+
+.ticket__admit {
+  display: block;
+  font: 500 10.5px/1 var(--sans);
+  letter-spacing: 0.42em;
+  padding-left: 0.42em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.ticket__guest {
+  margin-top: 12px;
+  font: 400 clamp(32px, 10vw, 42px)/1.1 var(--script);
+  color: var(--leather);
+  overflow-wrap: anywhere;
+}
+
+.ticket__event {
+  margin-top: 4px;
+  font: italic 400 15px/1.4 var(--serif);
+  color: var(--ink-soft);
+}
+
+.ticket__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 10px;
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(184, 149, 91, 0.5);
+}
+
+.ticket__grid .wide {
+  grid-column: 1 / -1;
+}
+
+.ticket__grid dt {
+  font: 500 9.5px/1 var(--sans);
+  letter-spacing: 0.3em;
+  padding-left: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.ticket__grid dd {
+  margin: 5px 0 0;
+  font: 400 17px/1.3 var(--serif);
+  color: var(--ink);
+}
+
+.ticket__perf {
+  position: relative;
+  height: 24px;
+  -webkit-mask:
+    radial-gradient(circle 12px at 0 50%, transparent 96%, #000 100%) left / 51% 100% no-repeat,
+    radial-gradient(circle 12px at 100% 50%, transparent 96%, #000 100%) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle 12px at 0 50%, transparent 96%, #000 100%) left / 51% 100% no-repeat,
+    radial-gradient(circle 12px at 100% 50%, transparent 96%, #000 100%) right / 51% 100% no-repeat;
+}
+
+.ticket__perf::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 50%;
+  border-top: 2px dotted rgba(184, 149, 91, 0.85);
+}
+
+.ticket__stub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 24px 22px;
+}
+
+.ticket__seal {
+  width: 64px;
+}
+
+.ticket__names {
+  font: 400 28px/1.1 var(--script);
+  color: var(--leather);
+}
+
+.ticket__names i {
+  font: italic 400 0.55em var(--serif);
+}
+
+.ticket__no {
+  font: 500 10px/1 var(--sans);
+  letter-spacing: 0.3em;
+  padding-left: 0.3em;
+  color: var(--gold-deep);
+}

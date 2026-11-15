@@ -1,0 +1,39 @@
+/* Design tokens (template-4 palette). eventConfig.theme overrides the colour tokens at runtime. */
+:root {
+  --wine: #4a0d1b;
+  --wine-deep: #3f0a15;
+  --leather: #6d1023;
+  --ink: #3a0a14;
+  --cream: #f6eee7;
+  --satin: #f3ece1;
+  --blush: #ecdcd4;
+  --gold: #b8955b;
+  --gold-light: #d9bf8a;
+  --gold-deep: #9c7a40;
+  --onyx: #120407;
+
+  --on-wine: #f1e4d3;
+  --on-wine-soft: rgba(241, 228, 211, 0.74);
+  --ink-soft: rgba(58, 10, 20, 0.7);
+  --error: #8e1026;
+
+  --serif: "Bodoni Moda", "Bodoni 72", Didot, "Didot LT STD", Georgia, serif;
+  --script: "Pinyon Script", "Snell Roundhand", "Apple Chancery", cursive;
+  --sans: "Jost", "Avenir Next", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --arabic: "Amiri", "Geeza Pro", "Noto Naskh Arabic", serif;
+
+  --col: 25.5rem;
+  --gutter: clamp(16px, 4.5vw, 28px);
+  --sec: clamp(64px, 17vw, 96px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Texture layers (set by Textures.ts; "none" until then). */
+  --tex-velvet-img: none;
+  --tex-velvet-dark: none;
+  --tex-velvet-sheen: none;
+  --tex-velvet-grain: none;
+  --tex-paper-img: none;
+  --tex-paper-mottle: none;
+  --tex-paper-grain: none;
+  --tex-film-grain: none;
+}

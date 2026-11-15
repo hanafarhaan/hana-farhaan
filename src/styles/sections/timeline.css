@@ -1,0 +1,120 @@
+.tl__body {
+  position: relative;
+}
+
+.tl__svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.tl__track {
+  fill: none;
+  stroke: rgba(217, 191, 138, 0.16);
+  stroke-width: 1;
+}
+
+.tl__line {
+  fill: none;
+  stroke: var(--gold-light);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(217, 191, 138, 0.55));
+}
+
+.tl__list {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 48px 0 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.tl__item {
+  display: grid;
+  grid-template-columns: 1fr 76px;
+  align-items: center;
+  gap: 10px;
+  min-height: 118px;
+  opacity: 0.3;
+  transition: opacity 0.9s var(--ease);
+}
+
+.tl__item.is-left {
+  grid-template-columns: 76px 1fr;
+}
+
+.tl__item.is-left .tl__badge {
+  order: -1;
+}
+
+.tl__item.is-lit {
+  opacity: 1;
+}
+
+.tl__txt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.tl__time {
+  font: 400 31px/1.05 var(--script);
+  color: var(--gold-light);
+}
+
+.tl__title {
+  font: 400 14.5px/1.45 var(--serif);
+  letter-spacing: 0.16em;
+  padding-left: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-wine);
+  text-wrap: balance;
+}
+
+.tl__sub {
+  font: italic 400 16px/1.45 var(--serif);
+  color: var(--on-wine-soft);
+  text-wrap: balance;
+}
+
+.tl__badge {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  color: var(--gold-light);
+  background: radial-gradient(circle at 50% 35%, #5a1424, var(--wine-deep) 70%);
+  border: 1px solid rgba(217, 191, 138, 0.85);
+  box-shadow:
+    0 0 0 5px var(--wine-deep),
+    0 0 0 6px rgba(217, 191, 138, 0.38);
+  transition:
+    transform 0.9s var(--ease),
+    box-shadow 0.9s ease;
+}
+
+.tl__item.is-lit .tl__badge {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 0 5px var(--wine-deep),
+    0 0 0 6px rgba(217, 191, 138, 0.6),
+    0 0 26px rgba(217, 191, 138, 0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl__item {
+    opacity: 1;
+  }
+}

@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Raw artwork drops (optimised copies go to public/images)
+artwork-inbox/

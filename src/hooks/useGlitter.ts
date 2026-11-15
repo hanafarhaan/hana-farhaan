@@ -18,17 +18,19 @@ type GlitterOptions = {
   /** Slowly float particles upward (gold dust) instead of twinkling in place. */
   drift?: boolean;
   maxSize?: number;
+  /** Pause the animation loop (e.g. when off screen). */
+  active?: boolean;
 };
 
 const MAX_PARTICLES = 2600;
 
 /**
- * Draws twinkling glitter onto a canvas. Sized to the canvas's layout box,
- * capped at 2x device pixel ratio, and drawn once (static) for reduced-motion users.
+ * Draws twinkling glitter / drifting dust onto a canvas sized to its layout box.
+ * Capped at 2x device pixel ratio; drawn once (static) for reduced-motion users.
  */
 export function useGlitter(
   ref: RefObject<HTMLCanvasElement | null>,
-  { density, colors, drift = false, maxSize = 1.6 }: GlitterOptions,
+  { density, colors, drift = false, maxSize = 1.6, active = true }: GlitterOptions,
 ) {
   useEffect(() => {
     const canvas = ref.current;
@@ -43,13 +45,11 @@ export function useGlitter(
     let frame = 0;
 
     const seed = () => {
-      // offsetWidth ignores CSS transforms, so scaling the curtain doesn't re-seed.
       width = canvas.offsetWidth;
       height = canvas.offsetHeight;
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
       const count = Math.min(MAX_PARTICLES, Math.round(((width * height) / 10_000) * density));
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * width,
@@ -78,12 +78,10 @@ export function useGlitter(
         const alpha = reduceMotion ? 0.7 : 0.25 + 0.75 * twinkle;
         ctx.globalAlpha = alpha;
         ctx.fillStyle = p.color;
-
         if (p.r < 0.9) {
           ctx.fillRect(p.x, p.y, p.r * 2, p.r * 2);
           continue;
         }
-        // Brightest larger flecks get a four-point star flare.
         if (p.r > 1.3 && alpha > 0.65) {
           ctx.fillRect(p.x - p.r * 3, p.y - 0.35, p.r * 6, 0.7);
           ctx.fillRect(p.x - 0.35, p.y - p.r * 3, 0.7, p.r * 6);
@@ -101,12 +99,12 @@ export function useGlitter(
     };
 
     seed();
-    if (reduceMotion) draw(1000);
+    if (reduceMotion || !active) draw(1000);
     else frame = requestAnimationFrame(loop);
 
     const observer = new ResizeObserver(() => {
       seed();
-      if (reduceMotion) draw(1000);
+      if (reduceMotion || !active) draw(1000);
     });
     observer.observe(canvas);
 
@@ -114,5 +112,5 @@ export function useGlitter(
       cancelAnimationFrame(frame);
       observer.disconnect();
     };
-  }, [ref, density, colors, drift, maxSize]);
+  }, [ref, density, colors, drift, maxSize, active]);
 }
