@@ -13,17 +13,19 @@ const PUBLIC = path.join(ROOT, "public");
 const CONFIG = path.join(ROOT, "src", "config", "eventConfig.ts");
 const APPLY = process.argv.includes("--apply");
 
-/** File name (without extension) in the inbox → where it goes and how to compress it. */
+/** File name (without extension) in the inbox → where it goes and how to compress it.
+ *  `aliases` are other file names accepted for the same slot. */
 const SPECS = [
-  { name: "envelope-flower", slot: "envelopeFlower", out: "images/envelope-flower.webp", width: 1000, maxKB: 200 },
+  { name: "envelope-flower", aliases: ["rose artwork"], slot: "envelopeFlower", out: "images/envelope-flower.webp", width: 1000, maxKB: 120 },
   { name: "closing-flower", slot: "closingFlower", out: "images/closing-flower.webp", width: 900, maxKB: 200 },
   { name: "seal-gold", slot: "sealGold", out: "images/seal-gold.webp", width: 520, maxKB: 120 },
-  { name: "seal-ivory", slot: "sealIvory", out: "images/seal-ivory.webp", width: 420, maxKB: 100 },
-  { name: "velvet-wine", slot: "velvetTexture", out: "images/velvet-wine.webp", width: 1200, maxKB: 150 },
-  { name: "paper-cream", slot: "paperTexture", out: "images/paper-cream.webp", width: 1200, maxKB: 150 },
+  { name: "seal-ivory", aliases: ["elegant ivory wax seal monogram"], slot: "sealIvory", out: "images/seal-ivory.webp", width: 520, maxKB: 100 },
+  // Section backgrounds are shown with background-size: cover, so they keep their full resolution (fine grain).
+  { name: "velvet-wine", aliases: ["maroon background"], slot: "velvetTexture", out: "images/velvet-wine.webp", width: 3456, maxKB: 170 },
+  { name: "paper-cream", aliases: ["background-cream"], slot: "paperTexture", out: "images/paper-cream.webp", width: 3456, maxKB: 170 },
   { name: "letter-paper", slot: "letterPaper", out: "images/letter-paper.webp", width: 900, maxKB: 200 },
   { name: "gold-foil", slot: "goldFoil", out: "images/gold-foil.webp", width: 1000, maxKB: 150 },
-  { name: "venue", slot: "venuePhoto", out: "images/venue.webp", width: 900, photo: true, maxKB: 180 },
+  { name: "venue", aliases: ["mukta_edited", "mukta"], slot: "venuePhoto", out: "images/venue.webp", width: 900, photo: true, maxKB: 260 },
   { name: "couple", slot: "couplePhoto", out: "images/couple.webp", width: 900, photo: true, maxKB: 180 },
   { name: "dress-her", slot: "dressHer", out: "images/dress-her.webp", width: 700, photo: true, maxKB: 140 },
   { name: "dress-him", slot: "dressHim", out: "images/dress-him.webp", width: 700, photo: true, maxKB: 140 },
@@ -42,20 +44,20 @@ const IMAGE_EXT = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif", ".tif", ".
 const AUDIO_EXT = new Set([".mp3", ".m4a"]);
 const IGNORE = new Set(["film-ruby2_couple-removed.mp4", ".gitkeep", "readme.txt"]);
 
-// Gentle warm grade so real photos sit inside the wine-and-gold palette.
+// Gentle warm grade so real photos sit inside the wine-and-gold palette (skipped for "…_edited" files).
 const WARM = [
   [1.05, 0.03, 0],
   [0.02, 1.0, 0],
   [0, 0.02, 0.93],
 ];
 
-async function encode(spec, input) {
+async function encode(spec, input, grade) {
   for (let quality = 84; ; quality -= 6) {
     let img = sharp(input, { failOn: "none" }).rotate();
     img = spec.height
       ? img.resize(spec.width, spec.height, { fit: "cover", position: "attention" })
       : img.resize({ width: spec.width, withoutEnlargement: true });
-    if (spec.photo) img = img.recomb(WARM);
+    if (grade) img = img.recomb(WARM);
     const buf = spec.jpeg
       ? await img.jpeg({ quality, mozjpeg: true }).toBuffer()
       : await img.webp({ quality, alphaQuality: 90, effort: 6 }).toBuffer();
@@ -90,12 +92,14 @@ async function main() {
       continue;
     }
 
-    const spec = SPECS.find((s) => s.name === base);
+    const spec = SPECS.find((s) => s.name === base || s.aliases?.includes(base));
     if (!spec || !IMAGE_EXT.has(ext)) {
       unknown.push(file);
       continue;
     }
-    const { buf, quality } = await encode(spec, input);
+    // Photos get a gentle warm grade, unless the file name says it's already edited ("…_edited").
+    const grade = !!spec.photo && !base.includes("edited");
+    const { buf, quality } = await encode(spec, input, grade);
     await writeFile(path.join(PUBLIC, spec.out), buf);
     done.push({ file, out: spec.out, slot: spec.slot, note: spec.note, kb: Math.round(buf.length / 1024), quality });
   }
@@ -119,7 +123,8 @@ async function main() {
     let src = await readFile(CONFIG, "utf8");
     for (const d of slots) {
       const key = d.mediaMusic ? "music" : d.slot;
-      src = src.replace(new RegExp(`(\\b${key}:\\s*)"[^"]*"`), `$1"${d.out}"`);
+      // Set the slot's path and drop any trailing "// …" hint comment on that line.
+      src = src.replace(new RegExp(`(\\b${key}:\\s*)"[^"]*",?[ \\t]*(//[^\\n]*)?`), `$1"${d.out}",`);
     }
     await writeFile(CONFIG, src);
     console.log("\nWrote these paths into eventConfig.ts.");

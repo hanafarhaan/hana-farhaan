@@ -1,10 +1,10 @@
 /* Design tokens (template-4 palette). eventConfig.theme overrides the colour tokens at runtime. */
 :root {
-  --wine: #4a0d1b;
-  --wine-deep: #3f0a15;
+  --wine: #3c161c;
+  --wine-deep: #2f1016;
   --leather: #6d1023;
   --ink: #3a0a14;
-  --cream: #f6eee7;
+  --cream: #ebe5db;
   --satin: #f3ece1;
   --blush: #ecdcd4;
   --gold: #b8955b;

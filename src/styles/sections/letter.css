@@ -51,6 +51,29 @@
   filter: drop-shadow(0 16px 22px rgba(50, 6, 16, 0.22));
 }
 
+/* ---------- Real flower artwork (single image) ----------
+   The letter sits behind the bloom and rises out of its top; when fully risen, its lower edge stays
+   tucked behind the topmost petals. Extra blank paper at the bottom keeps every word visible. */
+
+/* The letter never drops below the bloom here, so let the flower's shadow fall naturally. */
+.env.has-art {
+  clip-path: none;
+}
+
+.env.has-art .env__front {
+  margin-top: -13%;
+}
+
+.env.has-art .env__front-img {
+  aspect-ratio: 1208 / 1302;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 24px rgba(50, 6, 16, 0.28));
+}
+
+.env.has-art .card3d__front .letter-card {
+  padding-bottom: clamp(50px, 16cqw, 62px);
+}
+
 /* ---------- Flip card ---------- */
 
 .card3d {

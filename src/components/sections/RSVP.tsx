@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
 import { eventConfig as c } from "../../config/eventConfig";
 import { burst } from "../../utils/confetti";
 import { reveal } from "../../utils/reveal";
@@ -46,9 +46,7 @@ function doneCopy(reply: StoredReply) {
   };
 }
 
-type Props = { onReplied: (replied: boolean) => void };
-
-const RSVP = forwardRef<HTMLElement, Props>(function RSVP({ onReplied }, ref) {
+export default function RSVP() {
   const [reply, setReply] = useState<StoredReply | null>(() => loadReply());
   const [editing, setEditing] = useState(() => !loadReply());
   const [name, setName] = useState(() => reply?.name ?? "");
@@ -64,10 +62,6 @@ const RSVP = forwardRef<HTMLElement, Props>(function RSVP({ onReplied }, ref) {
   const phoneRef = useRef<HTMLInputElement>(null);
   const doneRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    onReplied(!!reply && !editing);
-  }, [reply, editing, onReplied]);
 
   const validate = (): Errors => {
     const next: Errors = {};
@@ -145,7 +139,7 @@ const RSVP = forwardRef<HTMLElement, Props>(function RSVP({ onReplied }, ref) {
   const copy = reply ? doneCopy(reply) : null;
 
   return (
-    <section className="sec s-cream rsvp-sec" id="rsvp" ref={ref} aria-labelledby="rsvp-title">
+    <section className="sec s-cream rsvp-sec" id="rsvp" aria-labelledby="rsvp-title">
       <div className="sec__in">
         <SectionHeader
           title="Will you join us?"
@@ -290,6 +284,4 @@ const RSVP = forwardRef<HTMLElement, Props>(function RSVP({ onReplied }, ref) {
       </div>
     </section>
   );
-});
-
-export default RSVP;
+}

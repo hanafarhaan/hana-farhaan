@@ -14,8 +14,10 @@
   overflow: hidden;
   border: 1px solid rgba(217, 191, 138, 0.6);
   background-color: var(--satin);
-  background-image: var(--tex-paper-mottle), var(--tex-paper-grain);
-  background-size: 900px 900px, 220px 220px;
+  background-image: var(--tex-paper-img), var(--tex-paper-mottle), var(--tex-paper-grain);
+  background-size: cover, 900px 900px, 220px 220px;
+  background-position: center;
+  background-repeat: no-repeat, repeat, repeat;
 }
 
 .scratch__date {

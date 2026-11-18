@@ -174,7 +174,7 @@ Removed from the template: Good to know carousel, FAQ, drinks question, personal
 ### 6 · Where (cream)
 - Title: WHERE.
 - **Arched venue photo** with a gold outline (placeholder `public/images/venue.webp` `[TBC]`), with a slow parallax zoom on scroll.
-- Venue name: **MUKHTA, CHAMARA VAJRA** (Bodoni caps, wide tracking).
+- Venue name: **MUKTA, CHAMARA VAJRA** (Bodoni caps, wide tracking).
 - Address: *`[TBC: full address]`, Bengaluru* (italic).
 - *"Sunday, the seventeenth of January, from seven o'clock"*.
 - Buttons: **GET DIRECTIONS** (`btn--fill`, opens Google Maps directions to `config.mapsUrl` or `[TBC]`) and **ADD TO CALENDAR** (`btn`).
@@ -204,14 +204,14 @@ Removed from the template: Good to know carousel, FAQ, drinks question, personal
 - **On success**, the form is replaced by:
   - A thank-you line: *"Thank you for being a part of our happiness. We can't wait to celebrate with you!"* (or a gentle variant for "can't come" / "later").
   - A gold confetti burst (for "Yes" only).
-  - An **admit-one ticket**: a satin ticket with a perforated stub. It reads ADMIT · *[guest name]* · DATE 17.01.2027 · TIME 7 pm · PLACE Mukhta, Chamara Vajra · DRESS CODE Cocktail, jewel tones, with "Hana & Farhaan" in script.
+  - An **admit-one ticket**: a satin ticket with a perforated stub. It reads ADMIT · *[guest name]* · DATE 17.01.2027 · TIME 7 pm · PLACE Mukta, Chamara Vajra · DRESS CODE Cocktail, jewel tones, with "Hana & Farhaan" in script.
   - **Save the ticket to my phone**: renders the ticket to PNG (canvas) and triggers a download / share sheet (`navigator.share` with a file where supported).
   - **Change my reply**: reopens the form pre-filled. Re-submitting sends a new row marked `update`.
 - Backend: **Google Sheets via Apps Script** (§5).
 
 ### 9 · See you there (wine)
 - **Arched couple photo** (placeholder `public/images/couple.webp` `[TBC]`) with an offset gold outline, and the **wax seal** (our SVG, in ivory/silver wax with the H&F monogram) overlapping the bottom of the arch.
-- SEE YOU THERE (Bodoni caps) · **Hana & Farhaan** (Pinyon Script) · *Sunday, the seventeenth of January 2027* · MUKHTA, CHAMARA VAJRA.
+- SEE YOU THERE (Bodoni caps) · **Hana & Farhaan** (Pinyon Script) · *Sunday, the seventeenth of January 2027* · MUKTA, CHAMARA VAJRA.
 
 ### 10 · Closing (cream)
 - A wine velvet **flower** (`closing-flower.png`, coded fallback in §10), gently swaying.
@@ -267,7 +267,7 @@ export const eventConfig = {
   utcOffset: "+05:30",
 
   venue: {
-    name: "Mukhta, Chamara Vajra",
+    name: "Mukta, Chamara Vajra",
     address: "[TBC]",
     city: "Bengaluru",
     mapsUrl: "",               // [TBC] Google Maps share link
@@ -419,3 +419,5 @@ Built on `dev` from this spec. Where the implementation differs from the text ab
 - **Add to calendar:** the menu opens upward, because the next section would otherwise cover it.
 - **Textures:** the coded velvet and paper textures are pre-rendered WebP tiles (`public/textures/`, about 70 KB, made by `scripts/make-textures.mjs`) instead of live SVG noise. Rendering the noise live cost phones about 3 seconds of main-thread time.
 - **Lighthouse (mobile, production build):** Performance 97 · Accessibility 100 · Best Practices 100 · SEO 100 (LCP 1.6 s, TBT 170 ms, CLS 0).
+- **Supplied artwork (2026-11-16):** the cream and maroon section backgrounds and the rose envelope came from the user's images (originals kept in `artwork-inbox/`). The backgrounds are full-resolution WebP (about 160 KB each), shown with `background-size: cover` and attached after page load. The rose is used as a single image: the letter rises from behind it and finishes tucked under the top petals, with extra blank paper at the bottom so no text is hidden. Colour tokens `--cream` and `--wine` were matched to the images' average colours. `start.bat` now serves on port 4173.
+- **Changes on 2026-11-18 (requested):** the opening cover's glitter backdrop was replaced with draped oxblood satin recreated in CSS from the user's reference (tapered diagonal folds, fine weave, slow sheen; no glitter), with a divider between the names and "Tap the seal". The user's ivory "H&F" wax seal (`seal-ivory.webp`, 43 KB) is used for every seal (cover, back of the letter, see you there, ticket and the saved ticket image) and as the favicon. Because it already carries the monogram, the coded monogram is no longer drawn on top of real seal artwork. The sticky "Reply to the invitation" bar and the "By car / By cab" notes were removed at the user's request. The glitter poster frame (`opening-poster.jpg`) is no longer used and was deleted.

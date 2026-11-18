@@ -66,24 +66,6 @@ export const IconMoon = (p: IconProps) => (
   </Svg>
 );
 
-export const IconCar = (p: IconProps) => (
-  <Svg {...p}>
-    <path d="M3.5 15.5v-3l2-4.2h13l2 4.2v3Z" />
-    <path d="M5.5 12.3h13" opacity=".6" />
-    <circle cx="7.4" cy="16.3" r="1.6" />
-    <circle cx="16.6" cy="16.3" r="1.6" />
-  </Svg>
-);
-
-export const IconCab = (p: IconProps) => (
-  <Svg {...p}>
-    <path d="M3.5 16v-3l2-4.2h13l2 4.2v3Z" />
-    <path d="M9.6 8.8V6.4h4.8v2.4" />
-    <circle cx="7.4" cy="16.8" r="1.6" />
-    <circle cx="16.6" cy="16.8" r="1.6" />
-  </Svg>
-);
-
 export const IconChevronLeft = (p: IconProps) => (
   <Svg {...p}>
     <path d="m14.5 6-6 6 6 6" />

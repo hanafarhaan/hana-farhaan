@@ -45,11 +45,10 @@ export interface EventConfig {
 
   venue: {
     name: string;
-    address: string;
+    address: string; // full street address (shown in the venue section and calendar invite)
     city: string;
     mapsUrl: string; // Google Maps share link
     mapsEmbedUrl: string; // Google Maps embed src
-    gettingThere: { byCar: string; byCab: string };
   };
 
   schedule: { time: string; title: string; subtitle: string; icon: ScheduleIcon }[];
@@ -74,7 +73,6 @@ export interface EventConfig {
 
   media: {
     openingVideo: string;
-    openingPoster: string;
     openingStage: string;
     music: string; // empty = no music button
   };
@@ -111,12 +109,13 @@ export const eventConfig: EventConfig = {
   },
 
   venue: {
-    name: "Mukhta, Chamara Vajra",
-    address: TBC,
+    name: "Mukta, Chamara Vajra",
+    address: "Jayamahal Main Rd, Bengaluru, Karnataka 560006",
     city: "Bengaluru",
-    mapsUrl: "",
-    mapsEmbedUrl: "",
-    gettingThere: { byCar: TBC, byCab: TBC },
+    mapsUrl:
+      "https://www.google.com/maps/place/Mukta/@13.0027204,77.5925954,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae170fb6b434ef:0xb104e38d14592e06!8m2!3d13.0027204!4d77.5925954!16s%2Fg%2F11h1rbkfnv",
+    mapsEmbedUrl:
+      "https://maps.google.com/maps?q=Mukta%2C%20Chamara%20Vajra%2C%20Jayamahal%20Main%20Rd%2C%20Bengaluru&ll=13.0027204%2C77.5925954&z=16&output=embed",
   },
 
   schedule: [
@@ -164,21 +163,20 @@ export const eventConfig: EventConfig = {
 
   media: {
     openingVideo: "videos/opening.mp4",
-    openingPoster: "videos/opening-poster.jpg",
     openingStage: "videos/opening-stage.jpg",
     music: "", // "music/theme.mp3" once supplied
   },
 
   artwork: {
-    envelopeFlower: "", // images/envelope-flower.webp
+    envelopeFlower: "images/envelope-flower.webp",
     closingFlower: "", // images/closing-flower.webp
-    sealGold: "", // images/seal-gold.webp
-    sealIvory: "", // images/seal-ivory.webp
-    velvetTexture: "", // images/velvet-wine.webp
-    paperTexture: "", // images/paper-cream.webp
+    sealGold: "images/seal-ivory.webp", // the ivory seal is used everywhere a seal appears
+    sealIvory: "images/seal-ivory.webp",
+    velvetTexture: "images/velvet-wine.webp",
+    paperTexture: "images/paper-cream.webp",
     letterPaper: "", // images/letter-paper.webp
     goldFoil: "", // images/gold-foil.webp
-    venuePhoto: "", // images/venue.webp
+    venuePhoto: "images/venue.webp",
     couplePhoto: "", // images/couple.webp
     dressHer: "", // images/dress-her.webp
     dressHim: "", // images/dress-him.webp
@@ -186,11 +184,11 @@ export const eventConfig: EventConfig = {
   },
 
   theme: {
-    "--wine": "#4a0d1b",
-    "--wine-deep": "#3f0a15",
+    "--wine": "#3c161c",
+    "--wine-deep": "#2f1016",
     "--leather": "#6d1023",
     "--ink": "#3a0a14",
-    "--cream": "#f6eee7",
+    "--cream": "#ebe5db",
     "--satin": "#f3ece1",
     "--blush": "#ecdcd4",
     "--gold": "#b8955b",

@@ -12,18 +12,12 @@ import Venue from "./components/sections/Venue";
 import Confetti from "./components/ui/Confetti";
 import MusicToggle from "./components/ui/MusicToggle";
 import NoiseOverlay from "./components/ui/NoiseOverlay";
-import StickyRsvpBar from "./components/ui/StickyRsvpBar";
-import { useInView } from "./hooks/useInView";
 import { useScrollLock } from "./hooks/useScrollLock";
-import { loadReply } from "./utils/rsvpClient";
 
 export default function App() {
   const [started, setStarted] = useState(false);
   const [openingDone, setOpeningDone] = useState(false);
-  const [replied, setReplied] = useState(() => !!loadReply());
   const opening = useRef<OpeningHandle>(null);
-  const rsvpRef = useRef<HTMLElement>(null);
-  const rsvpInView = useInView(rsvpRef, "0px 0px -15% 0px");
 
   useScrollLock(!openingDone);
 
@@ -44,12 +38,11 @@ export default function App() {
         <Timeline />
         <Venue />
         <DressCode />
-        <RSVP ref={rsvpRef} onReplied={setReplied} />
+        <RSVP />
         <SeeYouThere />
         <Closing onReplay={replay} />
       </main>
 
-      <StickyRsvpBar visible={openingDone && !rsvpInView && !replied} />
       <MusicToggle visible={started} />
       <Confetti />
       <NoiseOverlay />

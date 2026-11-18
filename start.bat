@@ -3,7 +3,7 @@ setlocal
 title Engagement Invite - Control
 cd /d "%~dp0"
 
-set "PORT=5173"
+set "PORT=4173"
 set "URL=http://localhost:%PORT%/"
 set "SERVER_TITLE=Engagement Invite Server"
 

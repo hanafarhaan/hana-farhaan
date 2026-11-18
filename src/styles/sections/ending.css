@@ -57,7 +57,7 @@
 /* ---------- Closing ---------- */
 
 .closing {
-  padding-bottom: calc(var(--sec) + 76px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(var(--sec) + env(safe-area-inset-bottom, 0px));
 }
 
 .closing__flower {

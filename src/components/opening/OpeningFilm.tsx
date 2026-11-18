@@ -122,7 +122,7 @@ const OpeningFilm = forwardRef<OpeningHandle, Props>(function OpeningFilm({ onSt
     } else {
       const img = new Image();
       img.onload = () => ctx.drawImage(img, 0, 0, cv.width, cv.height);
-      img.src = asset(phase === "cover" ? c.media.openingPoster : c.media.openingStage);
+      img.src = asset(c.media.openingStage);
     }
     return () => cancelAnimationFrame(frame);
   }, [phase, videoHidden]);
@@ -147,7 +147,6 @@ const OpeningFilm = forwardRef<OpeningHandle, Props>(function OpeningFilm({ onSt
               ref={video}
               className={`film__video ${videoHidden ? "is-hidden" : ""}`}
               src={asset(c.media.openingVideo)}
-              poster={asset(c.media.openingPoster)}
               muted
               playsInline
               preload="auto"

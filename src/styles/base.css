@@ -116,7 +116,9 @@ a {
     var(--tex-velvet-dark),
     var(--tex-velvet-grain),
     radial-gradient(140% 100% at 50% 45%, transparent 45%, rgba(14, 1, 5, 0.5) 100%);
-  background-size: 600px 600px, 100% 100%, 640px 640px, 640px 640px, 220px 220px, 100% 100%;
+  background-size: cover, 100% 100%, 640px 640px, 640px 640px, 220px 220px, 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat, no-repeat, repeat, repeat, repeat, no-repeat;
 }
 
 /* Cream cotton paper. */
@@ -128,7 +130,9 @@ a {
     var(--tex-paper-mottle),
     var(--tex-paper-grain),
     radial-gradient(130% 100% at 50% 40%, transparent 55%, rgba(120, 80, 50, 0.08));
-  background-size: 600px 600px, 900px 900px, 220px 220px, 100% 100%;
+  background-size: cover, 900px 900px, 220px 220px, 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat, repeat, repeat, no-repeat;
 }
 
 /* ---------- Reveal on scroll ---------- */

@@ -7,24 +7,21 @@ import Artwork from "../art/Artwork";
 import PhotoPlaceholder from "../art/PhotoPlaceholder";
 import AddToCalendar from "../ui/AddToCalendar";
 import ArchFrame from "../ui/ArchFrame";
-import { IconCab, IconCar, IconPin } from "../ui/Icons";
+import { IconPin } from "../ui/Icons";
 import SectionHeader from "../ui/SectionHeader";
-
-function Detail({ value }: { value: string }) {
-  return isTbc(value) ? <p className="getting__tbc">Details to follow</p> : <p>{value}</p>;
-}
 
 export default function Venue() {
   const [mapLoaded, setMapLoaded] = useState(false);
   const { venue } = c;
-  const address = isTbc(venue.address) ? venue.city : `${venue.address}, ${venue.city}`;
+  const address = isTbc(venue.address) ? venue.city : venue.address;
 
   return (
     <section className="sec s-cream venue" aria-labelledby="venue-title">
       <div className="sec__in">
         <SectionHeader title="Where" id="venue-title" />
 
-        <ArchFrame parallax className="venue__arch">
+        {/* No zoom on a real photo: it may carry its own composition (crest, lettering) near the edges. */}
+        <ArchFrame parallax={!c.artwork.venuePhoto} className="venue__arch">
           <Artwork
             slot="venuePhoto"
             alt={`${venue.name}, ${venue.city}`}
@@ -77,19 +74,6 @@ export default function Venue() {
               <span className="map-ph__cta">Map coming soon · tap for directions</span>
             </a>
           )}
-        </div>
-
-        <div className="getting rv" ref={reveal}>
-          <div className="getting__col">
-            <IconCar size={26} />
-            <b>By car</b>
-            <Detail value={venue.gettingThere.byCar} />
-          </div>
-          <div className="getting__col">
-            <IconCab size={26} />
-            <b>By cab</b>
-            <Detail value={venue.gettingThere.byCab} />
-          </div>
         </div>
       </div>
     </section>

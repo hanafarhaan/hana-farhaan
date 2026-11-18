@@ -39,7 +39,7 @@ export default function Letter() {
   return (
     <section className="sec s-cream letter" aria-label="A letter from the families">
       <div className="sec__in">
-        <div className={`env ${flipped ? "is-flipped" : ""}`} ref={stage}>
+        <div className={`env ${hasFlowerArt ? "has-art" : ""} ${flipped ? "is-flipped" : ""}`} ref={stage}>
           {!hasFlowerArt && <EnvelopeFlower layer="back" className="env__back" />}
 
           <div className="env__letter" ref={letter} onClick={flip}>

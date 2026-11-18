@@ -1,6 +1,6 @@
 # Hana & Farhaan · Engagement Invitation
 
-A cinematic, mobile-first digital invitation. A gold wax seal opens onto a velvet curtain film, Bismillah appears in the spotlight, and the guest scrolls through the letter, the date, the evening, the venue, the dress code and the RSVP.
+A cinematic, mobile-first digital invitation. An ivory wax seal on draped oxblood satin opens onto a velvet curtain film, Bismillah appears in the spotlight, and the guest scrolls through the letter, the date, the evening, the venue, the dress code and the RSVP.
 
 **Live:** https://hanafarhaan.github.io/hana-farhaan/ (published from the `main` branch)
 **Build spec:** [README_web.md](README_web.md) · **Artwork brief:** https://claude.ai/artifact/VVEaiFzgP6npYvGZFYY2y1
@@ -9,13 +9,13 @@ A cinematic, mobile-first digital invitation. A gold wax seal opens onto a velve
 
 ## Preview it on your computer
 
-Double-click **`start.bat`**. It starts the site and opens http://localhost:5173. Run it again to stop it.
+Double-click **`start.bat`**. It starts the site with live reload and opens http://localhost:4173. Run it again to stop it.
 
 Or from a terminal:
 
 ```bash
 npm install     # first time only
-npm run dev     # http://localhost:5173
+npm run dev -- --port 4173   # http://localhost:4173 (same as start.bat)
 npm run build   # production build into dist/
 ```
 
@@ -28,7 +28,7 @@ Everything lives in **[`src/config/eventConfig.ts`](src/config/eventConfig.ts)**
 | Names, monogram, family names (letter signature) | `bride`, `groom`, `monogram`, `families` |
 | Date, start/end time, timezone | `date`, `startTime`, `endTime`, `timezone`, `utcOffset` |
 | Bismillah + invitation lines on the stage | `stage` |
-| Venue, address, Google Maps link and embed, parking/cab notes | `venue` |
+| Venue name, address, Google Maps link and map embed | `venue` |
 | The evening's schedule (time, title, line, icon) | `schedule` |
 | Dress code headline, swatches, her/him/avoid | `dressCode` |
 | Letter text | `letter` |
@@ -69,7 +69,7 @@ src/
     opening/     Cover (seal) · OpeningFilm (video, stage, skip, replay) · StageText · WaxSeal
     sections/    Letter · ScratchDate · MarkTheDay · Timeline · Venue · DressCode · RSVP · Ticket · SeeYouThere · Closing
     art/         Artwork slots + coded fallbacks (EnvelopeFlower, VelvetFlower, LetterCard, SealArt, Textures…)
-    ui/          SectionHeader · ArchFrame · AddToCalendar · StickyRsvpBar · MusicToggle · Confetti · Icons
+    ui/          SectionHeader · ArchFrame · AddToCalendar · MusicToggle · Confetti · Icons
   hooks/         countdown, scroll progress, glitter, reduced motion, scroll lock
   utils/         dates, calendar (.ics + Google), RSVP client, ticket → PNG, confetti, music
   styles/        tokens · base · ui · art · sections/*

@@ -95,10 +95,12 @@
   height: 58px;
   border-radius: 50%;
   color: var(--gold-light);
-  background: radial-gradient(circle at 50% 35%, #5a1424, var(--wine-deep) 70%);
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 230, 200, 0.08), transparent 62%),
+    var(--wine);
   border: 1px solid rgba(217, 191, 138, 0.85);
   box-shadow:
-    0 0 0 5px var(--wine-deep),
+    0 0 0 5px var(--wine),
     0 0 0 6px rgba(217, 191, 138, 0.38);
   transition:
     transform 0.9s var(--ease),
@@ -108,7 +110,7 @@
 .tl__item.is-lit .tl__badge {
   transform: scale(1.05);
   box-shadow:
-    0 0 0 5px var(--wine-deep),
+    0 0 0 5px var(--wine),
     0 0 0 6px rgba(217, 191, 138, 0.6),
     0 0 26px rgba(217, 191, 138, 0.28);
 }

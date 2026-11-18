@@ -2,8 +2,8 @@ import { useId } from "react";
 import { eventConfig } from "../../config/eventConfig";
 import { asset } from "../../utils/asset";
 
-// Wax seal. Coded version: an SVG wax blob with a pressed stamp. If real seal artwork is configured,
-// the image is used instead, and the monogram is always drawn in code on top (AI tools garble letters).
+// Wax seal. Coded version: an SVG wax blob with a pressed stamp and the monogram.
+// If real seal artwork is configured it is shown as-is: the supplied seal carries its own monogram.
 
 export type SealPalette = "gold" | "ivory";
 
@@ -58,10 +58,7 @@ export default function SealArt({ palette = "gold", className = "" }: { palette?
   if (image) {
     return (
       <span className={`seal-art ${className}`}>
-        <img src={asset(image)} alt="" decoding="async" />
-        <svg viewBox="0 0 140 140" aria-hidden="true" focusable="false">
-          <Monogram palette={palette} />
-        </svg>
+        <img src={asset(image)} alt="" decoding="async" draggable={false} />
       </span>
     );
   }

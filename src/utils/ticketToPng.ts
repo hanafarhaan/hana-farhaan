@@ -1,5 +1,6 @@
 // Renders the admit-one ticket to a PNG (drawn on canvas with the page's fonts) and shares or downloads it.
 import { eventConfig as c } from "../config/eventConfig";
+import { asset } from "./asset";
 import { dateDots, time12 } from "./dates";
 
 /** A stable, pretty serial number for a guest's ticket. */
@@ -29,6 +30,35 @@ function fitFont(ctx: CanvasRenderingContext2D, text: string, font: (size: numbe
     ctx.font = font(size);
   }
   return size;
+}
+
+function loadImage(src: string) {
+  return new Promise<HTMLImageElement>((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+/** The supplied seal artwork if configured, otherwise the coded gold seal. */
+async function drawSealArt(ctx: CanvasRenderingContext2D, x: number, y: number, r: number) {
+  if (c.artwork.sealGold) {
+    try {
+      const img = await loadImage(asset(c.artwork.sealGold));
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.35)";
+      ctx.shadowBlur = r * 0.2;
+      ctx.shadowOffsetY = r * 0.07;
+      const s = (r * 2.3) / Math.max(img.width, img.height);
+      ctx.drawImage(img, x - (img.width * s) / 2, y - (img.height * s) / 2, img.width * s, img.height * s);
+      ctx.restore();
+      return;
+    } catch {
+      /* fall back to the coded seal */
+    }
+  }
+  drawSeal(ctx, x, y, r);
 }
 
 function drawSeal(ctx: CanvasRenderingContext2D, x: number, y: number, r: number) {
@@ -191,7 +221,7 @@ export async function renderTicket(name: string): Promise<Blob> {
   value(c.dressCode.ticketLabel, cx, ty + 856, 40);
 
   // Stub.
-  drawSeal(ctx, cx, perfY + 130, 78);
+  await drawSealArt(ctx, cx, perfY + 130, 78);
   ctx.fillStyle = "#6d1023";
   ctx.font = `400 64px ${SCRIPT}`;
   ctx.fillText(`${c.bride} & ${c.groom}`, cx, perfY + 290);

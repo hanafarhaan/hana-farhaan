@@ -8,7 +8,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(
 export const eventTitle = `${c.bride} & ${c.groom}’s Engagement`;
 
 export function eventLocation() {
-  return [c.venue.name, isTbc(c.venue.address) ? "" : c.venue.address, c.venue.city].filter(Boolean).join(", ");
+  return [c.venue.name, isTbc(c.venue.address) ? c.venue.city : c.venue.address].join(", ");
 }
 
 function eventDetails() {
